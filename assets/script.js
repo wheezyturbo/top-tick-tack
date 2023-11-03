@@ -65,7 +65,8 @@ const DisplayController = (() => {
     button.textContent = "restart";
     button.addEventListener("click", GameBoard.reRender);
     const text = document.createElement("h2");
-    text.textContent = "winner = " + GameController.getWinner().name;
+    const winner = GameController.getWinner().name;
+    text.textContent = winner ? "The Winner is " + winner : "It's a Draw!";
     result.appendChild(text);
     result.appendChild(button);
     document.body.appendChild(result);
@@ -92,6 +93,8 @@ const GameController = (() => {
   let gameOver = false;
   const playerOne = Player("test", "x");
   const playerTwo = Player("idk", "o");
+  // let playerOne;
+  // let playerTwo;
   var currentPlayer = playerOne;
   function togglePlayer() {
     console.log(currentPlayer == playerOne, currentPlayer.name);
@@ -127,8 +130,31 @@ const GameController = (() => {
   function clearWinner() {
     winner = false;
     gameOver = false;
+    currentPlayer = playerOne; //optional change depending on the way the game is to be played after restart
   }
-
+  // (() => {
+  //   const startMenu = document.createElement("div");
+  //   startMenu.classList.add("startMenu");
+  //   startMenu.innerHTML =
+  //     "<div class='form'>PlayerOne: <input id = 'playerone' type='text'><br>PlayerTwo:<input id='playertwo' type='text'><br><button onclick='()=>{GameController.handleStart()}'>start</button></div>";
+  //   document.body.appendChild(startMenu);
+  // })();
+  function handleStart() {
+    console.log("hello");
+    playerOne = Player(document.getElementById("playerone").value, "x");
+    playerTwo = Player(document.getElementById("playertwo").value, "o");
+    const startMenu = document.querySelector(".startMenu");
+    document.body.removeChild(startMenu);
+    DisplayController.render();
+  }
   DisplayController.render();
-  return { getCurrentPlayer, togglePlayer, getWinner, isGameOver, clearWinner };
+
+  return {
+    getCurrentPlayer,
+    togglePlayer,
+    getWinner,
+    isGameOver,
+    clearWinner,
+    handleStart,
+  };
 })();
