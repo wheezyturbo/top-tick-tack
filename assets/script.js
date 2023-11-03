@@ -1,9 +1,18 @@
 const GameBoard = (() => {
-  const gameboard = ["", "", "", "", "", "", "", "", ""];
+  let gameboard = ["", "", "", "", "", "", "", "", ""];
   function updateBoard(index, value) {
     gameboard[index] = value;
   }
-  return { gameboard, updateBoard };
+  function reRender() {
+    gameboard.forEach((_cell, index) => {
+      updateBoard(index, "");
+    });
+    GameController.clearWinner();
+    const board = (document.querySelector(".board").innerHTML = "");
+    DisplayController.render();
+    DisplayController.removeResults();
+  }
+  return { gameboard, updateBoard, reRender };
 })();
 
 function Player(name, move) {
@@ -36,8 +45,12 @@ const DisplayController = (() => {
     if (GameController.isGameOver(GameController.getCurrentPlayer())) {
       if (GameController.getWinner()) {
         console.log("winner = ", GameController.getWinner().name);
+        // GameBoard.reRender();
+        renderResults();
       } else {
         console.log("the game is ", GameController.isGameOver());
+        // GameBoard.reRender();
+        renderResults();
       }
     }
     GameController.togglePlayer();
@@ -45,7 +58,23 @@ const DisplayController = (() => {
       cells[i].textContent = GameBoard.gameboard[i];
     }
   }
-  return { render };
+  function renderResults() {
+    const result = document.createElement("div");
+    result.classList.add("resultDiv");
+    const button = document.createElement("button");
+    button.textContent = "restart";
+    button.addEventListener("click", GameBoard.reRender);
+    const text = document.createElement("h2");
+    text.textContent = "winner = " + GameController.getWinner().name;
+    result.appendChild(text);
+    result.appendChild(button);
+    document.body.appendChild(result);
+  }
+  function removeResults() {
+    const result = document.querySelector(".resultDiv");
+    document.body.removeChild(result);
+  }
+  return { render, removeResults };
 })();
 
 const GameController = (() => {
@@ -95,9 +124,11 @@ const GameController = (() => {
 
     return gameOver;
   }
+  function clearWinner() {
+    winner = false;
+    gameOver = false;
+  }
 
   DisplayController.render();
-  return { getCurrentPlayer, togglePlayer, getWinner, isGameOver };
+  return { getCurrentPlayer, togglePlayer, getWinner, isGameOver, clearWinner };
 })();
-
-//
