@@ -1,17 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="assets/style.css">
-    <script src="assets/script.js" defer></script>
+    <title>tic-tac-toe</title>
 </head>
+<link rel="stylesheet" href="assets/style.css">
+
 <body>
-    <div class="game">
+    <div class="container">
+
+        <div class="header">
+            <a class="logo" href="/">
+
+            </a>
+            <ul class="nav">
+                <li><a href="https://github.com/wheezyturbo">repo</a></li>
+                <li class="mode-btn">🌝</li>
+            </ul>
+
+        </div>
+        <main class="main">
+            <div class="main-left">
+                <h1>
+                    Welcome to <br><span class="color-effect">Tic</span> <span class="font-effect">Tac
+                    </span><span>Toe</span>
+                </h1>
+            </div>
+            <div class="main-right">
+                <h2>Select Players</h2>
+                <div class="selection">
+                    <div class="left-player">
+                        <button id="left">&lt;</button>
+                        <h3>Player</h3>
+                        <button id="right">&gt;</button>
+                    </div>
+                    <div class="right-player">
+                        <button id="left-r">&lt;</button>
+                        <h3>Player</h3>
+                        <button id="right-r">&gt;</button>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="start-btn">Start</button>
+                </div>
+            </div>
+        </main>
+    <div class="game hidden">
         <div class="board">
             
         </div>
     </div>
+    </div>
+
+
+    <script src="assets/script.js"></script>
 </body>
+
 </html>

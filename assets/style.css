@@ -1,3 +1,391 @@
+@import url("https://fonts.googleapis.com/css?family=Architects Daughter:700|Architects Daughter:400|Architects Daughter:600");
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* design starts here */
+
+:root[data-theme="light"] {
+  --text: #010104;
+  --background: #f7f6fe;
+  --primary: #8c174c;
+  --secondary: #fafbe9;
+  --accent: #3adf95;
+  --hover-color: #626265;
+}
+:root[data-theme="dark"] {
+  --text: #fbfbfe;
+  --background: #020109;
+  --primary: #e873a8;
+  --secondary: #151604;
+  --accent: #20c57b;
+  --hover-color: #626265;
+}
+
+body {
+  font-family: "Architects Daughter";
+  font-weight: 400;
+  background-color: var(--background);
+  color: var(--text);
+  transition: 0.3s ease-in;
+  height:100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Architects Daughter";
+  font-weight: 700;
+}
+
+html {
+  font-size: 16px;
+} /* 16px */
+
+h1 {
+  font-size: 3.053rem; /* 48.8px */
+}
+
+h2 {
+  font-size: 2.442rem; /* 39.04px */
+}
+
+h3 {
+  font-size: 1.954rem; /* 31.2px */
+}
+
+h4 {
+  font-size: 1.563rem; /* 24.96px */
+}
+
+h5 {
+  font-size: 1.25rem; /* 20px */
+}
+
+small {
+  font-size: 0.8rem; /* 12.8px */
+}
+
+.font-effect {
+  font-style: italic;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: var(--text);
+  color: transparent;
+}
+.color-effect {
+  background: linear-gradient(120deg, var(--primary), var(--accent));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 7%;
+  font-size: 1.2em;
+  font-weight: 700;
+}
+.nav {
+  display: flex;
+  gap: 2em;
+}
+.nav > li > * {
+  transition: 0.2s ease-in;
+}
+.nav > li > *:hover {
+  transition: 0.2s ease-out;
+}
+
+.header a {
+  text-decoration: none;
+  color: var(--primary);
+}
+.header a:hover {
+  color: var(--accent);
+}
+.mode-btn {
+  /* border:none;
+    background-color:var(--accent);
+    border-radius:15px;
+    padding:5px 20px; */
+  cursor: pointer;
+}
+
+.logo {
+  background: url("https://github.com/wheezyturbo.png");
+  height: 40px;
+  aspect-ratio: 1;
+  background-size: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 1px 1px 1px 1px var(--primary);
+}
+.logo:hover {
+  transition: 0.3s ease-in-out;
+  opacity: 89%;
+}
+
+.main {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5rem 0;
+}
+.main-left {
+  flex: 1 1 auto;
+  text-align: center;
+  width: 30%;
+}
+
+.main-right {
+  flex: 2 1 auto;
+}
+.selection {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+}
+.selection > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.selection button {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: var(--text);
+  transition: 0.05s ease-in;
+}
+.selection button:hover {
+  transform: scale(1.2);
+}
+
+#left:active,
+#left-r:active {
+  transform: translateX(-10px);
+  color: var(--primary);
+}
+#right:active,
+#right-r:active {
+  transform: translateX(10px);
+  color: var(--primary);
+}
+
+.start-btn {
+  background: none;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 5px 20px;
+  border-radius: 30px;
+  margin-top: 3rem;
+  transition: 0.2s ease-in;
+}
+
+.start-btn:hover {
+  background-color: #3adf95;
+  color: #010104;
+}
+.start-btn:active {
+  transform: scale(0.9);
+}
+
+.button {
+  cursor: pointer;
+}
+
+.board {
+  margin-top: 20vh;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  /* transition: 0.2s ease-in; */
+}
+.cell {
+  height: 150px;
+  aspect-ratio: 1;
+  border: 1px solid var(--text);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border:4px solid var(--text);
+  border-bottom-left-radius: 20px;
+  border-top-right-radius: 20px;
+  font-size:3rem;
+}
+
+.cell:nth-child(1),
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+
+.cell:nth-child(n + 7) {
+  border-bottom: none;
+}
+
+
+
+@media screen and (max-width: 912px) {
+  .main {
+    flex-direction: column;
+    align-items: center;
+    transition: 0.3s ease-out;
+  }
+  .main-right {
+    margin-top: 5rem;
+  }
+  .main > div {
+    width: auto;
+  }
+}
+
+
 :root {
   background-color: black;
   color: white;
@@ -11,30 +399,14 @@
 }
 
 .game {
-  height: 100vh;
-  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.board {
-  width: 500px;
-  aspect-ratio: 1;
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  border: 1px solid white;
-  /* justify-items: center; */
-}
 
-.cell {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid white;
-  font-size: 36px;
-  font-weight: bold;
-}
+
+
 
 .resultDiv {
   position: fixed;
@@ -47,4 +419,26 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap:8px;
+}
+
+.resultDiv > button{
+  padding:10px 20px;
+  border:none;
+  border-radius:30px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size:18px;
+  transition: 0.3s ease-in-out;
+}
+
+.resultDiv > button:hover{
+  background:linear-gradient(rgb(119, 33, 119),rgb(16, 56, 56));
+  color:white;
+  transform: scale(1.2);
+}
+
+
+.hidden {
+  display: none;
 }

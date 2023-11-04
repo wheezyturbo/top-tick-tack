@@ -1,3 +1,23 @@
+// const cells = document.querySelectorAll(".cell");
+const startbtn = document.querySelector(".start-btn");
+const main = document.querySelector(".main");
+const game = document.querySelector(".game");
+const modebtn = document.querySelector(".mode-btn");
+
+modebtn.addEventListener("click", () => {
+  let dataTheme = document.documentElement;
+  let theme = dataTheme.getAttribute("data-theme");
+  console.log(theme);
+  if (theme == "light") dataTheme.setAttribute("data-theme", "dark");
+  else dataTheme.setAttribute("data-theme", "light");
+});
+
+startbtn.addEventListener("click", () => {
+  main.classList.add("hidden");
+  game.classList.remove("hidden");
+});
+
+
 const GameBoard = (() => {
   let gameboard = ["", "", "", "", "", "", "", "", ""];
   function updateBoard(index, value) {
@@ -91,8 +111,8 @@ const GameController = (() => {
   ];
   let winner = false;
   let gameOver = false;
-  const playerOne = Player("test", "x");
-  const playerTwo = Player("idk", "o");
+  const playerOne = Player("Player One", "x");
+  const playerTwo = Player("Player Two", "o");
   // let playerOne;
   // let playerTwo;
   var currentPlayer = playerOne;
@@ -158,3 +178,5 @@ const GameController = (() => {
     handleStart,
   };
 })();
+
+
