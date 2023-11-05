@@ -15,9 +15,36 @@ modebtn.addEventListener("click", () => {
 startbtn.addEventListener("click", () => {
   main.classList.add("hidden");
   game.classList.remove("hidden");
+  GameController.init();
 });
 
-
+const PlayerSelection = (() => {
+  const topArrows = document.querySelectorAll(".p-one");
+  const bottomArrows = document.querySelectorAll(".p-two");
+  topArrows.forEach((arrow) => {
+    arrow.addEventListener("click", () => {
+      console.log("clicked");
+      const player = document.querySelector("#player-one");
+      player.textContent =
+        player.textContent == "Player" ? "Computer" : "Player";
+    });
+  });
+  bottomArrows.forEach((arrow) => {
+    arrow.addEventListener("click", () => {
+      const player = document.querySelector("#player-two");
+      player.textContent =
+        player.textContent == "Player" ? "Computer" : "Player";
+    });
+  });
+  function getPlayerOne() {
+    console.log(document.querySelector("#player-one").textContent);
+    return document.querySelector("#player-one").textContent;
+  }
+  function getPlayerTwo() {
+    return (player = document.querySelector("#player-two").textContent);
+  }
+  return { getPlayerOne, getPlayerTwo };
+})();
 const GameBoard = (() => {
   let gameboard = ["", "", "", "", "", "", "", "", ""];
   function updateBoard(index, value) {
@@ -60,7 +87,8 @@ const DisplayController = (() => {
   }
   function handleClick(cell) {
     const cells = document.querySelectorAll(".cell");
-    console.log(GameController.getCurrentPlayer().name);
+
+    // console.log(GameController.getCurrentPlayer().name);
     GameBoard.updateBoard(cell.id, GameController.getCurrentPlayer().move);
     if (GameController.isGameOver(GameController.getCurrentPlayer())) {
       if (GameController.getWinner()) {
@@ -73,6 +101,14 @@ const DisplayController = (() => {
         renderResults();
       }
     }
+    console.log(
+      GameBoard.gameboard.reduce((acc, curr, index) => {
+        if (curr === "") {
+          acc.push(index);
+        }
+        return acc;
+      }, [])
+    );
     GameController.togglePlayer();
     for (let i = 0; i < GameBoard.gameboard.length; i++) {
       cells[i].textContent = GameBoard.gameboard[i];
@@ -111,20 +147,24 @@ const GameController = (() => {
   ];
   let winner = false;
   let gameOver = false;
-  const playerOne = Player("Player One", "x");
-  const playerTwo = Player("Player Two", "o");
-  // let playerOne;
-  // let playerTwo;
-  var currentPlayer = playerOne;
-  function togglePlayer() {
-    console.log(currentPlayer == playerOne, currentPlayer.name);
-    if (currentPlayer == playerOne) currentPlayer = playerTwo;
-    else currentPlayer = playerOne;
-  }
+  const player = document.querySelector("#player-one");
+  const against = document.querySelector("#player-two");
+  // let playerOne = Player(PlayerSelection.getPlayerOne(), "x");
+  // let playerTwo = Player(PlayerSelection.getPlayerTwo(), "o");
+  let playerOne;
+  let playerTwo;
+  var currentPlayer;
+
   function getCurrentPlayer() {
     return currentPlayer;
   }
+  function togglePlayer() {
+    // console.log(currentPlayer == playerOne, currentPlayer.name);
+    if (currentPlayer == playerOne) currentPlayer = playerTwo;
+    else currentPlayer = playerOne;
+  }
   function getWinner() {
+    console.log(winner, getCurrentPlayer());
     return winner;
   }
   function isDraw() {
@@ -159,14 +199,6 @@ const GameController = (() => {
   //     "<div class='form'>PlayerOne: <input id = 'playerone' type='text'><br>PlayerTwo:<input id='playertwo' type='text'><br><button onclick='()=>{GameController.handleStart()}'>start</button></div>";
   //   document.body.appendChild(startMenu);
   // })();
-  function handleStart() {
-    console.log("hello");
-    playerOne = Player(document.getElementById("playerone").value, "x");
-    playerTwo = Player(document.getElementById("playertwo").value, "o");
-    const startMenu = document.querySelector(".startMenu");
-    document.body.removeChild(startMenu);
-    DisplayController.render();
-  }
   DisplayController.render();
 
   return {
@@ -175,8 +207,10 @@ const GameController = (() => {
     getWinner,
     isGameOver,
     clearWinner,
-    handleStart,
+    init: function () {
+      playerOne = Player(PlayerSelection.getPlayerOne(), "x");
+      playerTwo = Player(PlayerSelection.getPlayerTwo(), "o");
+      currentPlayer = playerOne;
+    },
   };
 })();
-
-
