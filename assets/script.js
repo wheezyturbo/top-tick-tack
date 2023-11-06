@@ -89,17 +89,17 @@ const DisplayController = (() => {
     const cells = document.querySelectorAll(".cell");
 
     // console.log(GameController.getCurrentPlayer().name);
-    GameBoard.updateBoard(cell.id, GameController.getCurrentPlayer().move);
-    if (GameController.isGameOver(GameController.getCurrentPlayer())) {
-      if (GameController.getWinner()) {
-        console.log("winner = ", GameController.getWinner().name);
-        // GameBoard.reRender();
-        renderResults();
-      } else {
-        console.log("the game is ", GameController.isGameOver());
-        // GameBoard.reRender();
-        renderResults();
-      }
+    if (GameController.getCurrentPlayer().name == "Player") {
+      GameBoard.updateBoard(cell.id, GameController.getCurrentPlayer().move);
+      GameController.togglePlayer();
+      checkGameOver();
+    } else {
+      GameBoard.updateBoard(
+        AI.decision(),
+        GameController.getCurrentPlayer().move
+      );
+      GameController.togglePlayer();
+      checkGameOver();
     }
     console.log(
       GameBoard.gameboard.reduce((acc, curr, index) => {
@@ -109,12 +109,29 @@ const DisplayController = (() => {
         return acc;
       }, [])
     );
-    GameController.togglePlayer();
     for (let i = 0; i < GameBoard.gameboard.length; i++) {
       cells[i].textContent = GameBoard.gameboard[i];
     }
   }
+  function checkGameOver() {
+    if (GameController.isGameOver()) {
+      if (GameController.getWinner()) {
+        console.log("winner = ", GameController.getWinner().name);
+        // GameBoard.reRender();
+        return renderResults();
+      } else {
+        console.log("the game is ", GameController.isGameOver());
+        // GameBoard.reRender();
+        return renderResults();
+      }
+    }
+  }
   function renderResults() {
+    const existingResult = document.querySelector(".resultDiv");
+    if (existingResult) {
+      document.body.removeChild(existingResult);
+    }
+
     const result = document.createElement("div");
     result.classList.add("resultDiv");
     const button = document.createElement("button");
@@ -212,5 +229,22 @@ const GameController = (() => {
       playerTwo = Player(PlayerSelection.getPlayerTwo(), "o");
       currentPlayer = playerOne;
     },
+  };
+})();
+
+const AI = (() => {
+  function getFreeCells() {
+    return GameBoard.gameboard.reduce((acc, curr, index) => {
+      if (curr === "") {
+        acc.push(index);
+      }
+      return acc;
+    }, []);
+  }
+  function decision() {
+    return getFreeCells()[Math.floor(Math.random() * getFreeCells().length)];
+  }
+  return {
+    decision,
   };
 })();
